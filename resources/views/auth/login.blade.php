@@ -35,7 +35,7 @@
                         <form class="kt-form" method="POST" action="{{ url('/login') }}">
                                 {{ csrf_field()  }}
                                 <div class="input-group">
-                                    <input class=" form-control-lg col-lg-12 inputs" type="text" placeholder="Email" name="email" autocomplete="off">
+                                    <input class=" form-control-lg col-lg-12 inputs" type="text" placeholder="Email" name="email" autocomplete="off" autofocus>
                                 </div>
                                 <div class="input-group">
                                     <input class=" form-control-lg col-lg-12 inputs" type="password" placeholder="Password" name="password">

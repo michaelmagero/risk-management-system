@@ -148,6 +148,8 @@
 
                     responsive: true,
 
+                    pageLength: 25,
+
                     dom:
                     "<'row'<'col-sm-10'l><'col-sm-2'f>>" +
                     "<'row'<'col-sm-12'tr>>" +

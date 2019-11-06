@@ -426,7 +426,7 @@ class DevController extends Controller
         $coup = Coupon::find($id);
         $query = DB::select(DB::raw("SELECT items_code FROM codes WHERE id = '$id' "));
         foreach ($query as $key => $value) {
-            $arr = json_decode($value->items_code, true);
+            $arr = json_decode($value->items_code);
             foreach ($arr as $k => $v) {
                 $v->item_status = 'tagged';
                 $v->returned_by = '';

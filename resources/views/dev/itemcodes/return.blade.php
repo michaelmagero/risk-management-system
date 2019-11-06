@@ -106,7 +106,7 @@
         };
     })();
 
-    $('#codes').on('input', function() {
+    $('#codes').on('paste', function() {
         delay(function(){
             if ($("#codes").val().length < 8) {
                 $("#codes").val("");
@@ -117,7 +117,7 @@
 </script>
 
 <script>
-$('#codes').on('input', function() {
+$('#codes').on('paste', function() {
         setTimeout(function() {
             console.log(codes.value);
             $('#receivingForm').submit()
