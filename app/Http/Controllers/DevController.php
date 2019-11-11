@@ -8,16 +8,11 @@ use App\Http\Controllers\Controller;
 use App\User;
 use Auth;
 use DB;
-use Hash;
-use App\Product;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Input;
 use Maatwebsite\Excel\Facades\Excel;
-use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Validator;
 use Redirect;
 use Carbon;
-use Keygen;
 use Illuminate\Support\Str;
 
 class DevController extends Controller
@@ -117,8 +112,7 @@ class DevController extends Controller
     {
         $user = User::where('id', $id)->first();
         if ($user) {
-            return view('dev.users.read')
-                ->with('users', User::where('id', $user->id)->orderBy('created_at', 'desc'));
+            return view('dev.users.read')->with('users', User::where('id', $user->id)->orderBy('created_at', 'desc'));
         } else {
             return view('dev.users.read');
         }
@@ -133,8 +127,7 @@ class DevController extends Controller
     public function edit($id)
     {
         $user = User::find($id);
-        return view('dev.users.edit')
-            ->with('users', User::where('id', $id)->get());
+        return view('dev.users.edit')->with('users', User::where('id', $id)->get());
     }
 
     public function update(Request $request, $id)
@@ -190,8 +183,7 @@ class DevController extends Controller
 
     public function all_itemcodes()
     {
-        return View('dev.itemcodes.show')
-            ->with('coupons', Coupon::orderBy('created_at', 'desc')->get());
+        return View('dev.itemcodes.show')->with('coupons', Coupon::orderBy('created_at', 'desc')->get());
     }
 
     public function create_itemcode()
@@ -243,7 +235,7 @@ class DevController extends Controller
     public function confirm_code(Request $request)
     {
         $icode = $request->get('codes');
-        $codes = DB::select(DB::raw("SELECT order_code,items_code FROM codes"));
+        $codes = DB::select('select order_code,items_code from codes');
         foreach ($codes as $ke => $va) {
             $jdecode = json_decode($va->items_code);
             foreach ($jdecode as $k => $v) {
@@ -255,7 +247,7 @@ class DevController extends Controller
                     $v->received_by = Auth::user()->name . " " . Auth::user()->lastname;
                     $v->received_on = Carbon\Carbon::parse()->format('Y-m-d h:i:s');
                     $jencode = json_encode($jdecode);
-                    $update = DB::update(DB::raw("UPDATE codes SET items_code = '$jencode' WHERE order_code = '$va->order_code'"));
+                    DB::update("update codes set items_code = '$jencode' where order_code = ?", [$va->order_code]);
                     Alert::success('Received Successfully!', 'Success')->autoclose(2500);
                     return back();
                 } elseif ($crypt == $icode && $status == "in store") {
@@ -279,7 +271,7 @@ class DevController extends Controller
     public function confirm_code_cashier(Request $request)
     {
         $icode = $request->get('codes');
-        $codes = DB::select(DB::raw("SELECT order_code,items_code FROM codes"));
+        $codes = DB::select('select order_code,items_code from codes');
         foreach ($codes as $ke => $va) {
             $jdecode = json_decode($va->items_code);
             foreach ($jdecode as $k => $v) {
@@ -291,7 +283,7 @@ class DevController extends Controller
                     $v->checkedout_by = Auth::user()->name . " " . Auth::user()->lastname;
                     $v->checkedout_on = Carbon\Carbon::parse()->format('Y-m-d h:i:s');
                     $jencode = json_encode($jdecode);
-                    $update = DB::update(DB::raw("UPDATE codes SET items_code = '$jencode' WHERE order_code = '$va->order_code'"));
+                    DB::update("update codes set items_code = '$jencode' where order_code = ?", [$va->order_code]);
                     Alert::success('Sale Successful!', 'Success')->autoclose(2500);
                     return back();
                 } elseif ($crypt == $icode && $status == "tagged") {
@@ -315,7 +307,7 @@ class DevController extends Controller
     public function return_item(Request $request)
     {
         $icode = $request->get('codes');
-        $codes = DB::select(DB::raw("SELECT order_code,items_code FROM codes"));
+        $codes = DB::select('select order_code,items_code from codes');
         foreach ($codes as $ke => $va) {
             $jdecode = json_decode($va->items_code);
             foreach ($jdecode as $k => $v) {
@@ -326,7 +318,7 @@ class DevController extends Controller
                     $v->returned_by = Auth::user()->name . " " . Auth::user()->lastname;
                     $v->returned_on = Carbon\Carbon::parse()->format('Y-m-d h:i:s');
                     $jencode = json_encode($jdecode);
-                    $update = DB::update(DB::raw("UPDATE codes SET items_code = '$jencode' WHERE order_code = '$va->order_code'"));
+                    DB::update("update codes set items_code = '$jencode' where order_code = ?", [$va->order_code]);
                     Alert::success('Return Successful!', 'Success')->autoclose(2500);
                     return back();
                 } elseif ($crypt == $icode && $status == "tagged") {
@@ -337,7 +329,6 @@ class DevController extends Controller
                     return back();
                 }
             }
-
             Alert::error('Invalid Item', 'Error')->autoclose(2500);
             return back();
         }
@@ -363,8 +354,7 @@ class DevController extends Controller
     public function makeqr($id)
     {
         $coupon = Coupon::where('id', $id)->first();
-        return view('dev.itemcodes.qr')
-            ->with('coupons', Coupon::where('id', $coupon->id)->orderBy('created_at', 'desc')->get());
+        return view('dev.itemcodes.qr')->with('coupons', Coupon::where('id', $coupon->id)->orderBy('created_at', 'desc')->get());
     }
 
     public function show_itemcode($id)
@@ -404,8 +394,7 @@ class DevController extends Controller
     public function edit_itemcode($id)
     {
         $coupon = Coupon::find($id);
-        return view('dev.itemcodes.edit')
-            ->with('coupons', Coupon::where('id', $id)->get());
+        return view('dev.itemcodes.edit')->with('coupons', Coupon::where('id', $id)->get());
     }
 
     /**
@@ -424,7 +413,7 @@ class DevController extends Controller
     public function reset_itemcode($id)
     {
         $coup = Coupon::find($id);
-        $query = DB::select(DB::raw("SELECT items_code FROM codes WHERE id = '$id' "));
+        $query = DB::select('select items_code from codes where id = ?', [$id]);
         foreach ($query as $key => $value) {
             $arr = json_decode($value->items_code);
             foreach ($arr as $k => $v) {
@@ -436,7 +425,7 @@ class DevController extends Controller
                 $v->received_by = '';
                 $v->received_on = '';
                 $jencode = json_encode($arr);
-                $update = DB::update(DB::raw("UPDATE codes SET items_code = '$jencode' WHERE id = '$id'"));
+                DB::update("update codes set items_code = '$jencode' where id = ?", [$id]);
             }
             Alert::success('Reset Successful', 'Success')->autoclose(2500);
             return back();

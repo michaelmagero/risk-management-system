@@ -211,7 +211,7 @@ License: You must have a valid license purchased only from themeforest(the above
 											<img class="kt-hidden" alt="Pic" src="./assets/media/users/300_25.jpg" />
 
 											<!--use below badge element instead the user avatar to display username's first letter(remove kt-hidden class to display it) -->
-											<span class="kt-badge kt-badge--lg kt-badge--rounded kt-badge--bold kt-font-success">S</span>
+											<span class="kt-badge kt-badge--lg kt-badge--rounded kt-badge--bold kt-font-success"><span>{{ Auth::user()->name[0] . "" . Auth::user()->lastname[0] }}</span>
 										</div>
 										<div class="kt-user-card__name">
 											{{  Auth::user()->name . " " . Auth::user()->lastname }}
@@ -226,7 +226,17 @@ License: You must have a valid license purchased only from themeforest(the above
 									<!--begin: Navigation -->
 									<div class="kt-notification">
 										<div class="kt-notification__custom kt-space-between">
-											<a href="{{ url('/logout') }}" target="_blank" class="btn btn-label btn-label-brand btn-sm btn-bold">Sign Out</a>
+                                            <a href="{{ url('/logout') }}" class="kt-menu__link kt-menu__toggle" class="" onclick="event.preventDefault();
+                                document.getElementById('logout-form').submit();">
+
+                                    <span class="kt-menu__link-icon">
+                                        <i class="flaticon-logout"></i>
+                                    </span>
+                                    <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
+                                        {{ csrf_field() }}
+                                    </form>
+                                    <span class="kt-menu__link-text">Sign Out</span>
+                                </a>
 										</div>
 									</div>
 
