@@ -135,6 +135,43 @@
                                     Returned On
                                 </th>
                             </tr>
+                        @elseif(Auth::user()->hasRole('retex-admin'))
+                            <tr>
+                                <th>
+                                    ID
+                                </th>
+
+                                <th>
+                                    Item
+                                </th>
+                                <th>
+                                    Item Status
+                                </th>
+
+                                <th>
+                                    Received by
+                                </th>
+
+                                <th>
+                                    Received On
+                                </th>
+
+                                <th>
+                                    Checkedout by
+                                </th>
+
+                                <th>
+                                    Checkedout On
+                                </th>
+
+                                <th>
+                                    Returned by
+                                </th>
+
+                                <th>
+                                    Returned On
+                                </th>
+                            </tr>
                         @elseif(Auth::user()->hasRole('agent'))
                             <tr>
                                 <th>
@@ -194,6 +231,38 @@
                                 </tr>
                             @endforeach
 						@elseif(Auth::user()->hasRole('admin'))
+                            @foreach($coupon->items_code as $item => $value)
+                                <tr>
+
+                                    <td>{{ $value['id'] }}</td>
+
+                                    <td>{{ $value['item'] }}</td>
+
+                                    @if($value['item_status'] == 'tagged')
+                                        <td data-field="Status" class=""><span style="width: 110px;"><span class="kt-badge kt-badge--unified-info kt-badge--lg kt-badge--inline"> {{ $value['item_status'] }} </span></span></td>
+                                    @elseif($value['item_status'] == 'sold')
+                                        <td data-field="Status" class=""><span style="width: 110px;"><span class="kt-badge kt-badge--success kt-badge--lg kt-badge--inline"> {{ $value['item_status'] }} </span></span></td>
+                                    @elseif($value['item_status'] == 'in store')
+                                        <td data-field="Status" class=""><span style="width: 110px;"><span class="kt-badge kt-badge--warning kt-badge--lg kt-badge--inline"> in store </span></span></td>
+                                    @else
+                                    @endif
+
+                                    <td>{{ $value['received_by'] }}</td>
+
+                                    <td>{{ $value['received_on'] }}</td>
+
+                                    <td>{{ $value['checkedout_by'] }}</td>
+
+                                    <td>{{ $value['checkedout_on'] }}</td>
+
+                                    <td>{{ $value['returned_by'] }}</td>
+
+                                    <td>{{ $value['returned_on'] }}</td>
+
+
+                                </tr>
+                            @endforeach
+						@elseif(Auth::user()->hasRole('retex-admin'))
                             @foreach($coupon->items_code as $item => $value)
                                 <tr>
 

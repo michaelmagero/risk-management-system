@@ -13,6 +13,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use Validator;
 use Redirect;
 use Carbon;
+use Illuminate\Support\Str;
 
 class AdminController extends Controller
 {
@@ -124,6 +125,42 @@ class AdminController extends Controller
     public function create_itemcode()
     {
         return view('dev.itemcodes.create');
+    }
+
+    public function insert_itemcode(Request $request)
+    {
+        $array = $request->get('arrayName');
+        $item_name = $request->get('item');
+        $id = 0;
+        ini_set('max_execution_time', 300);
+        foreach ($array as $key => $value) {
+            $count = $value['no_of_items'];
+            $col = collect($array);
+            $total_items = $col->sum('no_of_items');
+            for ($i = 0; $i < $count; $i++) {
+                $itemcodes[] = [
+                    'id' => $id++,
+                    'item' => $value['item'],
+                    'crypt_text' => bcrypt(Str::random(10)),
+                    'item_status' => 'tagged',
+                    'received_by' => '',
+                    'received_on' => '',
+                    'returned_by' => '',
+                    'returned_on' => '',
+                    'checkedout_by' => '',
+                    'checkedout_on' => '',
+                ];
+            }
+        }
+        $code = new Coupon();
+        $code->order_code = mt_rand(100000, 999999);
+        $code->item = $value['item'];
+        $code->no_of_items = $total_items;
+        $code->items_code = $itemcodes;
+        $code->created_by = Auth::user()->name . " " . Auth::user()->lastname;
+        $code->save();
+        Alert::success('ItemCodes Added Successfully', 'Success')->autoclose(2000);
+        return back();
     }
 
     public function check_ordercode()

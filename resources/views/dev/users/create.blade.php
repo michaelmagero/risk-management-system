@@ -66,6 +66,7 @@
                                     <select class="form-control" name="role" required>
                                         <option value="" class="hidden">Select role</option>
                                         <option value="admin">Admin</option>
+                                        <option value="retex-admin">Retex Admin</option>
                                         <option value="agent">Agent</option>
                                         <option value="cashier">Cashier</option>
                                     </select>

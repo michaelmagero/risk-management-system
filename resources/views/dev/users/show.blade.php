@@ -33,10 +33,19 @@
                 <div class="kt-portlet__head-wrapper">
                     <div class="kt-portlet__head-actions">
                         &nbsp;
-                        <a href="{{ url('new-user-dev') }}" class="btn btn-brand btn-elevate btn-icon-sm">
-                            <i class="la la-plus"></i>
-                            New User
-                        </a>
+                        @if(Auth::user()->hasRole('dev'))
+                            <a href="{{ url('new-user-dev') }}" class="btn btn-brand btn-elevate btn-icon-sm">
+                                <i class="la la-plus"></i>
+                                New User
+                            </a>
+                        @elseif(Auth::user()->hasRole('admin'))
+                            <a href="{{ url('new-user') }}" class="btn btn-brand btn-elevate btn-icon-sm">
+                                <i class="la la-plus"></i>
+                                New User
+                            </a>
+                        @else
+                        @endif
+
                     </div>
                 </div>
             </div>

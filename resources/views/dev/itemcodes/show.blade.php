@@ -38,6 +38,11 @@
                                 <i class="la la-plus"></i>
                                 New Itemcode
                             </a>
+                        @elseif(Auth::user()->hasRole('retex-admin'))
+                            <a href="{{ url('new-itemcode') }}" class="btn btn-brand btn-elevate btn-icon-sm">
+                                <i class="la la-plus"></i>
+                                New Itemcode
+                            </a>
                         @endif
                     </div>
                 </div>
@@ -73,6 +78,33 @@
 								</th>
 							</tr>
 						@elseif(Auth::user()->hasRole('admin'))
+							<tr>
+								<th>
+									Order ID
+								</th>
+
+								<th>
+									Order Code
+								</th>
+
+								<th>
+									Product
+								</th>
+
+
+								<th>
+									No of Items
+								</th>
+
+								<th>
+									Created
+								</th>
+
+								<th>
+									Action
+								</th>
+							</tr>
+						@elseif(Auth::user()->hasRole('retex-admin'))
 							<tr>
 								<th>
 									Order ID
@@ -172,6 +204,29 @@
 								</tr>
 							@endforeach
 						@elseif(Auth::user()->hasRole('admin'))
+							@foreach($coupons as $coupon)
+								<tr>
+									<td>{{ $coupon->id }}</td>
+
+									<td>{{ $coupon->order_code }}</td>
+
+									<td>{{ $coupon->item }}</td>
+
+									<td>{{ $coupon->no_of_items }}</td>
+
+									<td>{{ Carbon\Carbon::parse($coupon->created_at)->format('d-M-Y - h:i:s') }}</td>
+
+									<td>
+
+										<a href="{{ url('show-itemcode/'.$coupon->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="View Codes ">
+											<i class="fa fa-eye"></i>
+										</a>
+
+										</button>
+									</td>
+								</tr>
+							@endforeach
+						@elseif(Auth::user()->hasRole('retex-admin'))
 							@foreach($coupons as $coupon)
 								<tr>
 									<td>{{ $coupon->id }}</td>

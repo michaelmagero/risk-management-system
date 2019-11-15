@@ -90,6 +90,10 @@ Route::group(['/middleware' => ['auth']], function () {
 
     Route::get('all-itemcodes', 'AdminController@all_itemcodes');
 
+    Route::get('new-itemcode', 'AdminController@create_itemcode');
+
+    Route::post('new-itemcode', 'AdminController@insert_itemcode');
+
     Route::get('/verify-admin', 'AdminController@check_ordercode');
 
     Route::post('/verify-admin', 'AdminController@confirm_code');

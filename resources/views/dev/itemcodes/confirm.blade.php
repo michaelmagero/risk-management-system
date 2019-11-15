@@ -92,6 +92,38 @@
 
                 <!--end::Form-->
             </div>
+        @elseif(Auth::user()->hasRole('retex-admin'))
+            <!--begin::Form-->
+            <form class="kt-form" method="POST" action="{{ url('verify-admin') }}" enctype="multipart/form-data"  role="search" autocomplete="off" id="receivingForm">
+                    {{ csrf_field() }}
+
+                    <form class="kt-form">
+                        <div class="kt-portlet__body">
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-lg-2"></div>
+                                    <div class="col-lg-8">
+                                        <input type="password" id="codes" class="form-control-lg col-lg-12" name="codes" required autofocus style="height:150px; border: 1px solid #999;">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="kt-portlet__foot">
+                        <div class="kt-form__actions">
+                            <div class="row">
+                                <div class="col-lg-4"></div>
+                                <div class="col-lg-8">
+                                    <button name="submit" type="submit" class="btn btn-primary" id="submit_btn" hidden>Generate Itemcodes</button>
+                                    <button type="reset" class="btn btn-secondary" hidden>Cancel</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+                <!--end::Form-->
+            </div>
         @elseif(Auth::user()->hasRole('agent'))
             <!--begin::Form-->
             <form class="kt-form" method="POST" action="{{ url('verify-agent') }}" enctype="multipart/form-data"  role="search" autocomplete="off" id="receivingForm">

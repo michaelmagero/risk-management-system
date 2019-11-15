@@ -197,7 +197,7 @@ class DevController extends Controller
         $item_name = $request->get('item');
         $id = 0;
         ini_set('max_execution_time', 300);
-        foreach ($array as $key => $value) {
+        foreach ($array as $value) {
             $count = $value['no_of_items'];
             $col = collect($array);
             $total_items = $col->sum('no_of_items');
