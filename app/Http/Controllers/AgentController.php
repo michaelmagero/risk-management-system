@@ -47,8 +47,8 @@ class AgentController extends Controller
                     return back();
                 }
             }
-            Alert::error('Invalid Item', 'Error')->autoclose(2500);
-            return back();
         }
+        Alert::error('Invalid Item', 'Error')->autoclose(2500);
+        return back();
     }
 }

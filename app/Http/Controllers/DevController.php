@@ -236,8 +236,10 @@ class DevController extends Controller
     {
         $icode = $request->get('codes');
         $codes = DB::select('select order_code,items_code from codes');
+        //dump($codes);
         foreach ($codes as $ke => $va) {
             $jdecode = json_decode($va->items_code);
+            //dump($jdecode);
             foreach ($jdecode as $k => $v) {
                 $crypt = $v->crypt_text;
                 $status = $v->item_status;
@@ -258,9 +260,9 @@ class DevController extends Controller
                     return back();
                 }
             }
-            Alert::error('Invalid Item', 'Error')->autoclose(2500);
-            return back();
         }
+        Alert::error('Invalid Item', 'Error')->autoclose(2500);
+        return back();
     }
 
     public function checkout()
@@ -294,9 +296,9 @@ class DevController extends Controller
                     return back();
                 }
             }
-            Alert::error('Invalid Item', 'Error')->autoclose(2500);
-            return back();
         }
+        Alert::error('Invalid Item', 'Error')->autoclose(2500);
+        return back();
     }
 
     public function return()
@@ -329,9 +331,9 @@ class DevController extends Controller
                     return back();
                 }
             }
-            Alert::error('Invalid Item', 'Error')->autoclose(2500);
-            return back();
         }
+        Alert::error('Invalid Item', 'Error')->autoclose(2500);
+        return back();
     }
 
     public function export($id)

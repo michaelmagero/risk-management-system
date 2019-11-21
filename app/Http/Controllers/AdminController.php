@@ -193,9 +193,9 @@ class AdminController extends Controller
                     return back();
                 }
             }
-            Alert::error('Invalid Item', 'Error')->autoclose(2500);
-            return back();
         }
+        Alert::error('Invalid Item', 'Error')->autoclose(2500);
+        return back();
     }
 
     public function checkout()
@@ -228,9 +228,9 @@ class AdminController extends Controller
                     return back();
                 }
             }
-            Alert::error('Invalid Item', 'Error')->autoclose(2500);
-            return back();
         }
+        Alert::error('Invalid Item', 'Error')->autoclose(2500);
+        return back();
     }
 
 
@@ -265,9 +265,9 @@ class AdminController extends Controller
                     return back();
                 }
             }
-            Alert::error('Invalid Item', 'Error')->autoclose(2500);
-            return back();
         }
+        Alert::error('Invalid Item', 'Error')->autoclose(2500);
+        return back();
     }
 
 
