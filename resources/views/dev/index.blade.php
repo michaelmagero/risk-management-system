@@ -196,6 +196,10 @@
 
 										<a href="{{ url('reset-itemcode-dev/'.$coupon->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Reset ">
 											<i class="flaticon-refresh"></i>
+                                        </a>
+
+										<a href="{{ url('receive-itemcodes-dev/'.$coupon->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Reset ">
+											<i class="fa fa-check"></i>
 										</a>
 
 										</button>
@@ -242,6 +246,10 @@
 
 										<a href="{{ url('show-itemcode/'.$coupon->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="View Codes ">
 											<i class="fa fa-eye"></i>
+                                        </a>
+
+                                        <a href="{{ url('receive-itemcodes-admin/'.$coupon->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Reset ">
+											<i class="fa fa-check"></i>
 										</a>
 
 										</button>

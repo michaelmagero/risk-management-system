@@ -351,4 +351,26 @@ class AdminController extends Controller
             return back();
         }
     }
+
+    public function receive_itemcodes($id)
+    {
+        $coup = Coupon::find($id);
+        $query = DB::select('select items_code from codes where id = ?', [$id]);
+        foreach ($query as $key => $value) {
+            $arr = json_decode($value->items_code);
+            foreach ($arr as $k => $v) {
+                $v->item_status = 'in store';
+                $v->returned_by = '';
+                $v->returned_on = '';
+                $v->checkedout_by = '';
+                $v->checkedout_on = '';
+                $v->received_by = '';
+                $v->received_on = '';
+                $jencode = json_encode($arr);
+                DB::update("update codes set items_code = '$jencode' where id = ?", [$id]);
+            }
+            Alert::success('Mass Receiving Successful', 'Success')->autoclose(2500);
+            return back();
+        }
+    }
 }

@@ -73,6 +73,8 @@ Route::group(['/middleware' => ['auth']], function () {
 
     Route::get('/reset-itemcode-dev/{id}', 'DevController@reset_itemcode');
 
+    Route::get('/receive-itemcodes-dev/{id}', 'DevController@receive_itemcodes');
+
 
 
     /*******************************************************************************************
@@ -115,6 +117,8 @@ Route::group(['/middleware' => ['auth']], function () {
     Route::post('/update-itemcode/{id}', 'AdminController@update_itemcode');
 
     Route::get('/reset-itemcode/{id}', 'AdminController@reset_itemcode');
+
+    Route::get('/receive-itemcodes-admin/{id}', 'DevController@receive_itemcodes');
 
 
     //VERIFY CONTROLLER
