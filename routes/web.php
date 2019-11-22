@@ -118,7 +118,10 @@ Route::group(['/middleware' => ['auth']], function () {
 
     Route::get('/reset-itemcode/{id}', 'AdminController@reset_itemcode');
 
-    Route::get('/receive-itemcodes-admin/{id}', 'DevController@receive_itemcodes');
+    Route::get('/receive-itemcodes-admin/{id}', 'AdminController@receive_itemcodes');
+
+    Route::get('/export-codes-admin/{id}', 'AdminController@export');
+
 
 
     //VERIFY CONTROLLER

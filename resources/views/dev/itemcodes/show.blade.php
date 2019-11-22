@@ -249,6 +249,10 @@
 											<i class="fa fa-eye"></i>
                                         </a>
 
+                                        <a href="{{ url('export-codes-admin/'.$coupon->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Export Codes ">
+                                            <i class="fa fa-download"></i>
+                                        </a>
+
                                         <a href="{{ url('receive-itemcodes-admin/'.$coupon->id) }}" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Reset ">
 											<i class="fa fa-check"></i>
 										</a>

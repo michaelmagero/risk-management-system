@@ -338,8 +338,8 @@ class AdminController extends Controller
             $arr = json_decode($value->items_code);
             foreach ($arr as $k => $v) {
                 $v->item_status = 'tagged';
-                $v->returned_by = '';
-                $v->returned_on = '';
+                $v->returned_by = Auth::user()->name . " " . Auth::user()->lastname;
+                $v->returned_on = Carbon\Carbon::parse()->format('Y-m-d h:i:s');
                 $v->checkedout_by = '';
                 $v->checkedout_on = '';
                 $v->received_by = '';
@@ -364,8 +364,8 @@ class AdminController extends Controller
                 $v->returned_on = '';
                 $v->checkedout_by = '';
                 $v->checkedout_on = '';
-                $v->received_by = '';
-                $v->received_on = '';
+                $v->received_by = Auth::user()->name . " " . Auth::user()->lastname;
+                $v->received_on = Carbon\Carbon::parse()->format('Y-m-d h:i:s');
                 $jencode = json_encode($arr);
                 DB::update("update codes set items_code = '$jencode' where id = ?", [$id]);
             }
